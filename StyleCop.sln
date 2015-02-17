@@ -10,6 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencie
 		Dependencies\StyleCop.CSharp.dll = Dependencies\StyleCop.CSharp.dll
 		Dependencies\StyleCop.CSharp.Rules.dll = Dependencies\StyleCop.CSharp.Rules.dll
 		Dependencies\StyleCop.dll = Dependencies\StyleCop.dll
+		Dependencies\StyleCopSettingsEditor.exe = Dependencies\StyleCopSettingsEditor.exe
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{01E664B4-82BC-4886-BE9B-D57092F52446}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
