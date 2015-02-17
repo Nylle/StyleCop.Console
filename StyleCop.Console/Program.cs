@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 
 namespace StyleCop.Console
 {
@@ -25,11 +26,19 @@ namespace StyleCop.Console
                 return (int)ExitCode.Failed;
             }
 
-            var searchOption = arguments.NotRecursive ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
-            var projectPath = arguments.ProjectPath; //"D:\\Stuff\\Projects\\StyleCopConsole\\StyleCop.Console";
-            
-            var settings = @"c:\Program Files (x86)\StyleCop 4.7\Settings.StyleCop";
+            var settings = !string.IsNullOrWhiteSpace(arguments.SettingsLocation)
+                ? arguments.SettingsLocation
+                : Path.Combine(Assembly.GetExecutingAssembly().Location + "Settings.StyleCop");
 
+            var searchOption = arguments.NotRecursive ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
+
+            var projectPath = arguments.ProjectPath;
+
+            return ProcessFolder(settings, projectPath, searchOption);
+        }
+
+        private static int ProcessFolder(string settings, string projectPath, SearchOption searchOption)
+        {
             var console = new StyleCopConsole(settings, false, null, null, true);
             var project = new CodeProject(0, projectPath, new Configuration(null));
 
@@ -44,7 +53,7 @@ namespace StyleCop.Console
             console.OutputGenerated -= OnOutputGenerated;
             console.ViolationEncountered -= OnViolationEncountered;
 
-            return _encounteredViolations > 0 ? (int)ExitCode.Failed : (int)ExitCode.Passed;
+            return _encounteredViolations > 0 ? (int) ExitCode.Failed : (int) ExitCode.Passed;
         }
 
         private static void ShowHelp()
@@ -54,9 +63,10 @@ namespace StyleCop.Console
             System.Console.WriteLine("-------------------");
             System.Console.WriteLine("");
             System.Console.WriteLine("Usage:");
-            System.Console.WriteLine("  -project-path <path> or -p <path> .... The path to analyze cs-files in");
-            System.Console.WriteLine("  -not-recursively or -n ............... Do not process path recursively");
-            System.Console.WriteLine("  -help or -? .......................... Show this screen");
+            System.Console.WriteLine("  -project-path <path> or -p <path> ....... The path to analyze cs-files in");
+            System.Console.WriteLine("  -settings-location <path> or -s <path> .. The path to 'Settings.StyleCop'");
+            System.Console.WriteLine("  -not-recursively or -n .................. Do not process path recursively");
+            System.Console.WriteLine("  -help or -? ............................. Show this screen");
         }
 
         private static void OnOutputGenerated(object sender, OutputEventArgs e)

@@ -22,6 +22,9 @@
             get { return (this["help"] ?? this["?"]) != null; }
         }
 
-
+        public string SettingsLocation
+        {
+            get { return this["settings-location"] ?? this["s"]; }
+        }
     }
 }
