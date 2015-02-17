@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SourceAnalyzer Name="Team Rules">
+  <Description>Team rules added to analyzer.</Description>
+  <Rules>
+    <RuleGroup Name="Implementation">
+      <Rule Name="OneClassPerFile" CheckId="CM1000">
+        <Context>Only one class keyword should be present in cs file.</Context>
+        <Description>Only one class keyword should be present in cs file.</Description>
+      </Rule>
+    </RuleGroup>
+  </Rules>
+</SourceAnalyzer>

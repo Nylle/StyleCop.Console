@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{74C243B2-D49B-4161-96FE-B36FA3011B81}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{9FDA7C34-69BD-46CC-8699-2D191A2BC966}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StyleCop.Console</RootNamespace>
-    <AssemblyName>StyleCop.Console</AssemblyName>
+    <RootNamespace>StyleCop.Rules</RootNamespace>
+    <AssemblyName>StyleCop.Rules</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,18 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="StyleCop, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="StyleCop">
       <HintPath>..\Dependencies\StyleCop.dll</HintPath>
     </Reference>
-    <Reference Include="StyleCop.CSharp, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="StyleCop.CSharp">
       <HintPath>..\Dependencies\StyleCop.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="StyleCop.CSharp.Rules, Version=4.7.1000.0, Culture=neutral, PublicKeyToken=f904653c63bc2738, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\StyleCop.CSharp.Rules.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -53,19 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLineArguments.cs" />
-    <Compile Include="ExitCode.cs" />
-    <Compile Include="RunnerArguments.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="RulesAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <EmbeddedResource Include="RulesAnalyzer.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Tools\StyleCopSettingsEditor.exe">
+    <None Include="Settings.StyleCop">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

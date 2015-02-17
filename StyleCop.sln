@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleCop.Rules", "StyleCop.Rules\StyleCop.Rules.csproj", "{9FDA7C34-69BD-46CC-8699-2D191A2BC966}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{74C243B2-D49B-4161-96FE-B36FA3011B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74C243B2-D49B-4161-96FE-B36FA3011B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74C243B2-D49B-4161-96FE-B36FA3011B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FDA7C34-69BD-46CC-8699-2D191A2BC966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FDA7C34-69BD-46CC-8699-2D191A2BC966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FDA7C34-69BD-46CC-8699-2D191A2BC966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FDA7C34-69BD-46CC-8699-2D191A2BC966}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
