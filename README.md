@@ -13,7 +13,7 @@ To *not* analyse subdirectories recursively add the argument switch `-not-recurs
 To deactivate default rules, edit the file `Settings.StyleCop` with the `StyleCopSettingsEditor.exe` or pass your existing settings file via command line argument:
 
 ```Shell
-StyleCop.Console.exe -project-path "path/to/your/cs/project -settings-location "path/to/your/Settings.StyleCop"
+StyleCop.Console.exe -project-path "path/to/your/cs/project" -settings-location "path/to/your/Settings.StyleCop"
 ```
 
 ### Custom Rules
