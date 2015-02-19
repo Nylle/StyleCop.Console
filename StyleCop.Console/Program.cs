@@ -77,7 +77,7 @@ namespace StyleCop.Console
         private static void OnViolationEncountered(object sender, ViolationEventArgs e)
         {
             _encounteredViolations++;
-            WriteLineViolationMessage(string.Format("{0}: {1}", e.Violation.Rule.CheckId, e.Message));
+            WriteLineViolationMessage(string.Format("  Line {0}: {1} ({2})", e.LineNumber, e.Message, e.Violation.Rule.CheckId));
         }
 
         private static void WriteLineViolationMessage(string message)
