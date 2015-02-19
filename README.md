@@ -20,7 +20,7 @@ StyleCop.Console.exe -settings-location "path/to/your/Settings.StyleCop" -projec
 
 You can add your own rules by adding your own `SourceAnalyzer` class in the `StyleCop.Rules` project. Refer to the existing `RulesAnalyzer.cs` class as a real-life example for disallowing more than one class per code file.
 
-Further reading: https://stylecopplus.codeplex.com/wikipage?title=How%20to%20Create%20StyleCop%20Custom%20Rule
+Further reading: [How to Create StyleCop Custom Rule](https://stylecopplus.codeplex.com/wikipage?title=How%20to%20Create%20StyleCop%20Custom%20Rule)
 
 ## All Command Line Arguments
 
