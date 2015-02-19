@@ -15,7 +15,7 @@ namespace StyleCop.Console
             if (arguments.Help)
             {
                 ShowHelp();
-                return (int)ExitCode.Failed;
+                return (int) ExitCode.Failed;
             }
 
             if (string.IsNullOrWhiteSpace(arguments.ProjectPath))
@@ -23,7 +23,7 @@ namespace StyleCop.Console
                 ShowHelp();
                 System.Console.WriteLine("");
                 System.Console.WriteLine("ERROR: No path specified!");
-                return (int)ExitCode.Failed;
+                return (int) ExitCode.Failed;
             }
 
             var settings = !string.IsNullOrWhiteSpace(arguments.SettingsLocation)
@@ -42,18 +42,15 @@ namespace StyleCop.Console
             var console = new StyleCopConsole(settings, false, null, null, true);
             var project = new CodeProject(0, projectPath, new Configuration(null));
 
-            foreach (var directory in Directory.EnumerateDirectories(projectPath, "*.*", SearchOption.AllDirectories))
+            foreach (var file in Directory.EnumerateFiles(projectPath, "*.cs", SearchOption.AllDirectories))
             {
                 //TODO: This is pretty hacky. Have to figure out a better way to exclude packages and/or make this configurable.
-                if (directory.Contains("\\packages\\"))
+                if (file.Contains("\\packages\\"))
                 {
                     continue;
                 }
 
-                foreach (var file in Directory.EnumerateFiles(directory, "*.cs", SearchOption.TopDirectoryOnly))
-                {
-                    console.Core.Environment.AddSourceCode(project, file, null);
-                }
+                console.Core.Environment.AddSourceCode(project, file, null);
             }
 
             console.OutputGenerated += OnOutputGenerated;
@@ -86,7 +83,8 @@ namespace StyleCop.Console
         private static void OnViolationEncountered(object sender, ViolationEventArgs e)
         {
             _encounteredViolations++;
-            WriteLineViolationMessage(string.Format("  Line {0}: {1} ({2})", e.LineNumber, e.Message, e.Violation.Rule.CheckId));
+            WriteLineViolationMessage(string.Format("  Line {0}: {1} ({2})", e.LineNumber, e.Message,
+                e.Violation.Rule.CheckId));
         }
 
         private static void WriteLineViolationMessage(string message)
