@@ -42,9 +42,18 @@ namespace StyleCop.Console
             var console = new StyleCopConsole(settings, false, null, null, true);
             var project = new CodeProject(0, projectPath, new Configuration(null));
 
-            foreach (var file in Directory.EnumerateFiles(projectPath, "*.cs", searchOption))
+            foreach (var directory in Directory.EnumerateDirectories(projectPath, "*.*", SearchOption.AllDirectories))
             {
-                console.Core.Environment.AddSourceCode(project, file, null);
+                //TODO: This is pretty hacky. Have to figure out a better way to exclude packages and/or make this configurable.
+                if (directory.Contains("\\packages\\"))
+                {
+                    continue;
+                }
+
+                foreach (var file in Directory.EnumerateFiles(directory, "*.cs", SearchOption.TopDirectoryOnly))
+                {
+                    console.Core.Environment.AddSourceCode(project, file, null);
+                }
             }
 
             console.OutputGenerated += OnOutputGenerated;

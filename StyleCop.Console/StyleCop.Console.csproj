@@ -63,7 +63,6 @@
     <None Include="App.config" />
     <None Include="Settings.StyleCop">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
