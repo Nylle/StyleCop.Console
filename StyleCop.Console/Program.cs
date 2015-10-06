@@ -10,31 +10,39 @@ namespace StyleCop.Console
 
         public static int Main(string[] args)
         {
-            var arguments = new RunnerArguments(args);
-
-            if (arguments.Help)
+            try
             {
-                ShowHelp();
+                var arguments = new RunnerArguments(args);
+
+                if (arguments.Help)
+                {
+                    ShowHelp();
+                    return (int) ExitCode.Failed;
+                }
+
+                if (string.IsNullOrWhiteSpace(arguments.ProjectPath) || !Directory.Exists(arguments.ProjectPath))
+                {
+                    ShowHelp();
+                    System.Console.WriteLine("");
+                    System.Console.WriteLine("ERROR: Invalid or no path specified \"{0}\"!", arguments.ProjectPath);
+                    return (int) ExitCode.Failed;
+                }
+
+                var settings = !string.IsNullOrWhiteSpace(arguments.SettingsLocation)
+                    ? arguments.SettingsLocation
+                    : Path.Combine(Assembly.GetExecutingAssembly().Location, "Settings.StyleCop");
+
+                var searchOption = arguments.NotRecursive ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
+
+                var projectPath = arguments.ProjectPath;
+
+                return ProcessFolder(settings, projectPath, searchOption);
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("An unhandled exception occured: {0}", ex);
                 return (int) ExitCode.Failed;
             }
-
-            if (string.IsNullOrWhiteSpace(arguments.ProjectPath))
-            {
-                ShowHelp();
-                System.Console.WriteLine("");
-                System.Console.WriteLine("ERROR: No path specified!");
-                return (int) ExitCode.Failed;
-            }
-
-            var settings = !string.IsNullOrWhiteSpace(arguments.SettingsLocation)
-                ? arguments.SettingsLocation
-                : Path.Combine(Assembly.GetExecutingAssembly().Location + "Settings.StyleCop");
-
-            var searchOption = arguments.NotRecursive ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
-
-            var projectPath = arguments.ProjectPath;
-
-            return ProcessFolder(settings, projectPath, searchOption);
         }
 
         private static int ProcessFolder(string settings, string projectPath, SearchOption searchOption)
@@ -42,7 +50,7 @@ namespace StyleCop.Console
             var console = new StyleCopConsole(settings, false, null, null, true);
             var project = new CodeProject(0, projectPath, new Configuration(null));
 
-            foreach (var file in Directory.EnumerateFiles(projectPath, "*.cs", SearchOption.AllDirectories))
+            foreach (var file in Directory.EnumerateFiles(projectPath, "*.cs", searchOption))
             {
                 //TODO: This is pretty hacky. Have to figure out a better way to exclude packages and/or make this configurable.
                 if (file.Contains("\\packages\\"))
