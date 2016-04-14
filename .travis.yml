@@ -1,2 +1,16 @@
 language: csharp
 solution: StyleCop.sln
+deploy:
+  provider: releases
+  api_key:
+    secure: eccF5Xr50qHXmxTrFUQZXt2VD613sPZ6sRO+euXJPe42H4maK/+e3ErZ9ar2hzoaiR1k47UJcRidtDhVxTWQ93pf+w/+FHq0bttyXZvy/syj7R5J9D56iJKW8xRUWBq10iZamIoPIgbTlvlVIF2zmSfxsOw7ZSTeReUXSPBle0A=
+  file: 
+    - StyleCop.Console\bin\Release\Tools\StyleCopSettingsEditor.exe
+    - StyleCop.Console\bin\Release\Settings.StyleCop
+    - StyleCop.Console\bin\Release\StyleCop.Console.exe
+    - StyleCop.Console\bin\Release\StyleCop.Console.exe.config
+    - StyleCop.Console\bin\Release\StyleCop.dll
+    - StyleCop.Console\bin\Release\StyleCop.CSharp.dll
+    - StyleCop.Console\bin\Release\StyleCop.CSharp.Rules.dll
+  on:
+    repo: Nylle/StyleCop.Console
