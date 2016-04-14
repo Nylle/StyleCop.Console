@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Nylle/StyleCop.Console.svg?branch=master)](https://travis-ci.org/Nylle/StyleCop.Console)
+
 # StyleCop.Console
 
 ## Getting Started
