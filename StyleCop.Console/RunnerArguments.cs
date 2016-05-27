@@ -26,5 +26,10 @@
         {
             get { return this["settings-location"] ?? this["s"]; }
         }
+
+        public string OutputFile
+        {
+            get { return this["output-file"] ?? this["o"]; }
+        }
     }
 }
