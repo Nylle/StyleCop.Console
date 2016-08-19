@@ -38,7 +38,9 @@ namespace StyleCop.Console
 
                 var outputFile = arguments.OutputFile;
 
-                return ProcessFolder(settings, projectPath, outputFile, searchOption);
+                var rule = arguments.Rule;
+
+                return ProcessFolder(settings, projectPath, outputFile, searchOption, rule);
             }
             catch (Exception ex)
             {
@@ -47,7 +49,7 @@ namespace StyleCop.Console
             }
         }
 
-        private static int ProcessFolder(string settings, string projectPath, string outputFile, SearchOption searchOption)
+        private static int ProcessFolder(string settings, string projectPath, string outputFile, SearchOption searchOption, string rule)
         {
             var console = new StyleCopConsole(settings, false, outputFile, null, true);
             var project = new CodeProject(0, projectPath, new Configuration(null));
@@ -63,11 +65,17 @@ namespace StyleCop.Console
                 console.Core.Environment.AddSourceCode(project, file, null);
             }
 
+            var violationEncounteredFilter = new EventHandler<ViolationEventArgs>(delegate (Object sender, ViolationEventArgs args)
+            {
+                if (string.IsNullOrEmpty(rule) || rule.Equals(args.Violation.Rule.CheckId))
+                    OnViolationEncountered(sender, args);
+            });
+
             console.OutputGenerated += OnOutputGenerated;
-            console.ViolationEncountered += OnViolationEncountered;
+            console.ViolationEncountered += violationEncounteredFilter;
             console.Start(new[] {project}, true);
             console.OutputGenerated -= OnOutputGenerated;
-            console.ViolationEncountered -= OnViolationEncountered;
+            console.ViolationEncountered -= violationEncounteredFilter;
 
             return _encounteredViolations > 0 ? (int) ExitCode.Failed : (int) ExitCode.Passed;
         }

@@ -31,5 +31,10 @@
         {
             get { return this["output-file"] ?? this["o"]; }
         }
+
+        public string Rule
+        {
+            get { return this["rule"] ?? this["r"]; }
+        }
     }
 }
