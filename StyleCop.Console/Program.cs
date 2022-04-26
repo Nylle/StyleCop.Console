@@ -68,7 +68,9 @@ namespace StyleCop.Console
             var violationEncounteredFilter = new EventHandler<ViolationEventArgs>(delegate (Object sender, ViolationEventArgs args)
             {
                 if (string.IsNullOrEmpty(rule) || rule.Equals(args.Violation.Rule.CheckId))
+                {
                     OnViolationEncountered(sender, args);
+                }
             });
 
             console.OutputGenerated += OnOutputGenerated;
